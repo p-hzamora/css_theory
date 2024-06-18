@@ -1,0 +1,165 @@
+:root{
+	--l:32px;
+    --menu_icon: calc(.6* var(--l));
+    --increase_animation: calc((-1* var(--line-size) /2) + var(--menu_icon)/2);
+    --line-size: calc(1/30* var(--l));
+    --line-color: rgb(203 203 203);
+}
+.frame {  
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	width: var(--l);
+	height: var(--l);
+	margin-top: calc(-1 / 2 * var(--l));
+	margin-left: calc(-1 / 2 * var(--l));
+    border-radius: 3px;
+    box-shadow: 1px 2px 10px -3px rgb(0 0 0 /.9);
+    border: 1px solid rgb(203 203 203);
+    cursor: pointer;
+
+}
+
+.frame:hover {  
+    background-color: rgb(203 203 203/ 0.3);
+}
+
+.center{
+    position: absolute;
+    width: var(--menu_icon);
+    height: var(--menu_icon);
+    top: 50%;
+	left: 50%;
+    background-color: transparent;
+    transform: translate(-50%,-50%);
+}
+
+.menu-icon{
+    width: 100%;
+    height: 100%;
+    
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    z-index: 50;
+}
+
+.menu-icon div{
+    height: var(--line-size);
+    width: 100%;
+    background-color: var(--line-color);
+    border-radius: 3px;
+    box-shadow: 0 2px 10px 0 rgb(0 0 0 /.3);
+    transition: background-color .2s ease-in-out;
+}
+
+
+.frame:hover .line-1,
+.frame:hover .line-2,
+.frame:hover .line-3 {
+	background-color: rgb(110, 110, 110);
+}
+
+
+
+.frame.active .line-1 {
+	animation: animate-line-1 0.7s cubic-bezier(0.30, 1, 0.70, 1) forwards;
+}
+
+.frame.active .line-2 {
+	animation: animate-line-2 0.7s cubic-bezier(0.30, 1, 0.70, 1) forwards;
+}
+
+.frame.active .line-3 {
+	animation: animate-line-3 0.7s cubic-bezier(0.30, 1, 0.70, 1) forwards;
+}
+
+
+.frame .line-1.no-animation {
+	animation: animate-line-1-rev 0.7s cubic-bezier(0.30, 1, 0.70, 1) forwards;
+}
+
+.frame .line-2.no-animation {
+	animation: animate-line-2-rev 0.7s cubic-bezier(0.30, 1, 0.70, 1) forwards;
+}
+
+.frame .line-3.no-animation {
+	animation: animate-line-3-rev 0.7s cubic-bezier(0.30, 1, 0.70, 1) forwards;
+}
+
+
+
+
+@keyframes animate-line-1 {
+	0% {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+	50% {
+		transform: translate3d(0, var(--increase_animation), 0) rotate(0);
+	}
+	100% {
+        transform: translate3d(0, var(--increase_animation), 0) rotate(45deg);
+	}
+}
+
+@keyframes animate-line-2 {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(0);
+		opacity: 0;
+	}
+}
+
+@keyframes animate-line-3 {
+	0% {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+	50% {
+		transform: translate3d(0, calc(-1* var(--increase_animation)), 0) rotate(0);
+	}
+	100% {
+		transform: translate3d(0, calc(-1* var(--increase_animation)), 0) rotate(135deg);
+	}
+}
+
+
+@keyframes animate-line-1-rev {
+	0% {
+		transform: translate3d(0, var(--increase_animation), 0) rotate(45deg);
+	}
+	50% {
+		transform: translate3d(0, var(--increase_animation), 0) rotate(0);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+}
+
+@keyframes animate-line-2-rev {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes animate-line-3-rev {
+	0% {
+		transform: translate3d(0, calc(-1* var(--increase_animation)), 0) rotate(135deg);
+	}
+	50% {
+		transform: translate3d(0, calc(-1* var(--increase_animation)), 0) rotate(0);
+	}
+	100% {
+		transform: translate3d(0, 0, 0) rotate(0deg);
+	}
+}

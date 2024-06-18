@@ -1,0 +1,51 @@
+:root{
+    --clr: #222
+}
+*{
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--clr);
+    height: 300px;
+    width: 300px;
+    
+}
+
+.spinner {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(90deg, var(--clr) 10%, red 40%);
+
+    border-radius: 50%;
+    animation: spin .9s ease infinite;
+    transition: 1s transform ease;
+}
+
+.spinner.spinner::after {
+    --r: 93%;
+
+    position: absolute;
+    content: "";
+    top:0px;
+    left: 0px;
+    height: var(--r);
+    width: var(--r);
+    background: var(--clr);
+    border-radius: 50%;
+    top:calc((100% - var(--r)) / 2);
+    left:calc((100% - var(--r)) / 2);
+}
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

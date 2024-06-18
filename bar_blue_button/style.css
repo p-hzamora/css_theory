@@ -1,0 +1,144 @@
+:root{
+    --blue: #2196f3;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+ 
+body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #222327;
+}
+
+.navigation{
+    position: relative;
+    width: 400px;
+    height: 60px;
+    background:#fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.navigation ul{
+    display: flex;
+    width: 350px;
+}
+
+.navigation ul{
+    background-color: aqua;
+}
+.navigation ul li{
+    list-style: none;
+    position: relative;
+    /* 350 / 5 = 70px */
+    width: 70px;
+    height: 60px;
+    background-color: #fff;
+    z-index: 2;
+}
+
+.navigation ul li a{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+}
+
+.navigation ul li a .icon{
+    position: relative;
+    display: block;
+    line-height: 65px;
+    font-size: 1.5em;
+    transition: 0.5s;
+    color:black;
+}
+
+.navigation ul li.active a .icon{
+    transform: translateY(-32px);
+    color: var(--blue)
+}
+
+.navigation ul li a .text{
+    position: absolute;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 12px;
+    padding: 3px 7px;
+    font-weight: 400;
+    font-size: 0.75em;
+    letter-spacing: .05em;
+    transition: .5s;
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+.navigation ul li.active a .text{
+    transform: translateY(-4px);
+    opacity: 1;
+}
+
+.indicator{
+    --top-indicator: var(--R);
+
+    position: absolute;
+    width: calc(var(--R)*2);
+    height: calc(var(--R)*2);
+    top:calc(var(--top-indicator)*-1);
+    background: #fff;
+    border-radius: 50%;
+    z-index: 1;
+    transition: .3s;
+}
+
+.indicator::before{
+    content: "";
+    position: absolute;
+    top: calc((var(--top-indicator)) - (2 * var(--r)));
+    left:  calc(-1*var(--x));
+    width: calc(var(--r)*2);
+    height: calc(var(--r)*2);
+    background:transparent;
+    border-radius: 50%;
+    box-shadow: calc(var(--r)) var(--y) #fff;
+}
+.indicator::after{
+    content: "";
+    position: absolute;
+    top: calc((var(--top-indicator)) - (2* var(--r)));
+    right:  calc(-1*var(--x));
+    width: calc(var(--r)*2);
+    height: calc(var(--r)*2);
+    background:transparent;
+    border-radius: 50%;
+    box-shadow: calc(-1*var(--r)) var(--y) #fff;
+}
+
+.navigation ul li:nth-child(1).active ~ .indicator{
+    transform: translateX(calc(70px * 0));
+}
+.navigation ul li:nth-child(2).active ~ .indicator{
+    transform: translateX(calc(70px * 1));
+}
+.navigation ul li:nth-child(3).active ~ .indicator{
+    transform: translateX(calc(70px * 2));
+}
+.navigation ul li:nth-child(4).active ~ .indicator{
+    transform: translateX(calc(70px * 3));
+}
+.navigation ul li:nth-child(5).active ~ .indicator{
+    transform: translateX(calc(70px * 4));
+}
