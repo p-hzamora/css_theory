@@ -9,6 +9,8 @@ function activeLink(){
     this.classList.add("active");
 
 }
+
+
 $a.forEach(item=>{
     item.addEventListener("click",activeLink)
 })

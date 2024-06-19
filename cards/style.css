@@ -28,9 +28,10 @@ body{
 }
 
 .card{
-    position: relative;
-    background-color: rgb(255 255 255 /0.01);
+    background-color: rgb(255 255 255 /0.1);
     border-radius: 10px;
+    cursor: pointer;
+    position: relative;
     height: 260px;
     width: 300px;
 }
@@ -38,7 +39,8 @@ body{
 .card:hover::before{
     opacity: 1;
 }
-.card::before{
+.card::before,
+.card >.card-border{
     background:radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgb(255 255 255/.06), transparent 40%);
     position: absolute;
     border-radius: inherit;
@@ -50,8 +52,13 @@ body{
     z-index: 2;
 }
 
+
 .card > .card-content{
     background-color: var(--clr);
     height: calc(100% -2px);
     width: calc(100% -2px);
+    border-radius: inherit;
+    margin: 1px;
+    position: relative;
+    z-index: 1;
 }

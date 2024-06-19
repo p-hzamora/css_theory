@@ -1,0 +1,3 @@
+[submodule "extension/orm"]
+	path = extension/orm
+	url = git@github.com:p-hzamora/ormMySQL.git
