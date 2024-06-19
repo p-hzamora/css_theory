@@ -1,7 +1,7 @@
 
 body{
     min-height: 100vh;
-    font-family: Courier, monospace;
+    font-family: Arial, Helvetica, sans-serif, monospace;
 }
 
 .title-row{
@@ -22,24 +22,57 @@ ul{
     list-style: none;
 }
 
-.title-row li:nth-child(2){
+.title-row > li:nth-child(2){
     margin-right: auto;
     max-width: 550px;
 }
 
 .estados{
     display: flex;
-    margin:0;
-}
-
-.estados > li{
-    display: inherit;
+    margin:10px 0 0 0;
+    height: 20px;
+    background-color: transparent;
     flex-direction: row;
     align-items:center;
     padding-right: .5rem;
 }
 
-.estados> li > ion-icon{
+.estados  ion-icon{
     margin-right: .5rem;
+}
+
+.estado:hover{
+    background-color: rgb(40 122 203/ .1);
+}
+
+
+.estados .active{
+    border-bottom: 3.5px solid rgb(40 122 203);
+}
+.estados .active *{
+    color: rgb(40 122 203);
+}
+
+.exp-container{
+    display: flex;
+    flex-flow: column;
+}
+
+.exp-item {
+    display: flex;
+    flex-direction:  row;
+    border-bottom: 1px solid purple;
+    
+}
+
+.exp-item >div{
+    
+    display: inherit;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.exp-item > div:nth-child(3){
+    margin-right: auto;
 }
 

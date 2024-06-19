@@ -21,44 +21,32 @@
     </nav>
     <nav class="grupo-estados-row">
         <ul class="estados">
-            <li>
+            <li class="estado active">
                 <ion-icon name="documents-outline"></ion-icon>
-                <p>Pendientes</p>
+                <a>Pendientes</a>
             </li>
-            <li>
+            <li class="estado">
                 <ion-icon name="archive-outline"></ion-icon>
-                <p>Archivados</p>
+                <a>Archivados</a>
             </li>
-            <li>
+            <li class="estado">
                 <ion-icon name="lock-closed-outline"></ion-icon>
-                <p>Cerrados</p>
+                <a>Cerrados</a>
             </li>
         </ul>
     </nav>
-    <table class="table-expediente">
-        <thead>
-            <tr>
-                <th scope="col">N expediente</th>
-                <th scope="col">banco</th>
-                <th scope="col">Coordinador</th>
-                <th scope="col">Estado</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-        <template id="template-body-exp-table">
-            <tr>
-                <th class="expediente" scope="row"></th>
-                <td class="banco"></td>
-                <td class="coordinador"></td>
-                <td class="estado"></td>
-                <td>
-                    <button class="edit" type="button"> ... Editar</button>
-                </td>
-            </tr>
-        </template>
-    </table>
+    <ul class="exp-container">
+
+    </ul>
+    <template id="template-li-exp">
+        <li class="exp-item">
+            <div class="expediente" ></div>
+            <div class="banco"></div>
+            <div class="coordinador"></div>
+            <div class="estado"></div>
+            <div><button class="edit" type="button"> ... Editar</button></div>
+        </li>
+    </template>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
