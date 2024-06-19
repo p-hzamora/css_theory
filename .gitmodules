@@ -1,3 +1,6 @@
 [submodule "extension/orm"]
 	path = extension/orm
 	url = git@github.com:p-hzamora/ormMySQL.git
+[submodule "extension/fluent_validation"]
+	path = extension/fluent_validation
+	url = git@github.com:p-hzamora/FluentValidation.git
