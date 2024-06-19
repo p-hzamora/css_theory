@@ -1,0 +1,45 @@
+
+body{
+    min-height: 100vh;
+    font-family: Courier, monospace;
+}
+
+.title-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+li{
+    margin-right: 15px;
+
+}
+nav{
+    border-bottom: 2px solid rgb(184 184 184/.3 );
+}
+
+ul{
+    list-style: none;
+}
+
+.title-row li:nth-child(2){
+    margin-right: auto;
+    max-width: 550px;
+}
+
+.estados{
+    display: flex;
+    margin:0;
+}
+
+.estados > li{
+    display: inherit;
+    flex-direction: row;
+    align-items:center;
+    padding-right: .5rem;
+}
+
+.estados> li > ion-icon{
+    margin-right: .5rem;
+}
+
