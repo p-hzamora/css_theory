@@ -1,4 +1,4 @@
-from extension.orm import (
+from app.extensions.orm import (
     Column,
     Table,
     ModelBase,

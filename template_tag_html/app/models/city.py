@@ -1,5 +1,5 @@
 from typing import Self
-from extension.orm import (
+from app.extensions.orm import (
     Column,
     Table,
     ModelBase,

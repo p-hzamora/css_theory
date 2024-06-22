@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
 from extension.orm.orm.condition_types import ConditionType
-from template_tag_html.models.address import AddressModel, AddressValidator
+from .app.models import AddressModel, AddressValidator
 from extension.orm import MySQLRepository
 
 load_dotenv()

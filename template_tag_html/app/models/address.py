@@ -1,7 +1,7 @@
 from datetime import datetime
-from extension.fluent_validation import AbstractValidator
+from app.extensions.fluent_validation import AbstractValidator
 
-from extension.orm import (
+from app.extensions.orm import (
     Column,
     Table,
     ModelBase,
