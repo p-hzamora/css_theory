@@ -4,3 +4,9 @@
 [submodule "extension/fluent_validation"]
 	path = extension/fluent_validation
 	url = git@github.com:p-hzamora/FluentValidation.git
+[submodule "template_tag_html/app/extensions/orm"]
+	path = template_tag_html/app/extensions/orm
+	url = git@github.com:p-hzamora/ormMySQL.git
+[submodule "template_tag_html/app/extensions/fluent_validation"]
+	path = template_tag_html/app/extensions/fluent_validation
+	url = git@github.com:p-hzamora/FluentValidation.git
