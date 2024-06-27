@@ -13,5 +13,4 @@ def create_app(config_class=Config):
     return app
 
 
-create_app().run(port=5000, host="0.0.0.0")
-
+create_app().run(port=5555, host="0.0.0.0")
