@@ -7,8 +7,8 @@ def create_app(config_class=Config):
 
     app = Flask(__name__, template_folder="/templates", static_folder="static")
     app.config.from_object(config_class)
-    app.json.sor = False
-    app.register_blueprint(staff_bp, url_prefix="/staff")
+    app.json.sort_keys = False
+    app.register_blueprint(staff_bp, url_prefix="/staffs")
 
     return app
 
