@@ -1,7 +1,8 @@
+from collections import defaultdict
 from flask import Blueprint, jsonify, request
 
 
-from app.models import Staff, StaffModel
+from app.models.staff import Staff, StaffModel, StaffValidator
 from app.extensions import db
 from app.extensions.orm import Error
 from app.extensions.orm import ConditionType
@@ -18,11 +19,21 @@ bp = Blueprint(
 model = StaffModel(db)
 
 
+def validate_model(instance: Staff) -> tuple[bool, dict[str, str]]:
+    validate = StaffValidator().validate(instance)
+    serialize: dict[str, list[str, str]] = defaultdict(list)
+
+    if not validate.is_valid:
+        for err in validate.errors:
+            serialize[err.PropertyName].append(err.ErrorMessage)
+    return tuple([validate.is_valid, serialize])
+
+
 @bp.route("/", methods=["GET"])
 def staffs():
     limit = request.args.get("limit", type=int)
     if limit:
-        values = model.limit(limit).select()
+        values = model.limit(limit).select()[0]
         return jsonify({"limit": limit, "data": [x.to_dict() for x in values]})
     res: tuple[Staff] = model.select(lambda x: (x,))[0]
 
@@ -34,29 +45,43 @@ def staffs():
 
 @bp.route("/<int:id>", methods=["GET"])
 def get_city_by_id(id: int):
-    staff = model.where(lambda s: s.staff_id == id, id=id).select()[0]
+    try:
+        staff = model.where(lambda s: s.staff_id == id, id=id).select_one()
 
-    if staff:
+        if not staff:
+            return jsonify({"type": "database", "error": "Staff not found"}), 404
         return jsonify(staff.to_dict())
-    return jsonify({"error": "Staff not found"}), 404
+    except Exception:
+        return jsonify({"type": "database", "error": "Internal Error"}), 500
 
 
 @bp.route("/<int:id>", methods=["PUT", "PATCH"])
 def put_staff_id(id: int):
     try:
-        staff = model.where(lambda s: s.staff_id == id, id=id).select()
+        staff = model.where(lambda s: s.staff_id == id, id=id).select(
+            lambda staff: (
+                staff.Address.City.Country.country,
+                staff.Address.City.city,
+                staff.Address.address,
+                staff.Address.address_id,
+            ),flavour=dict
+        )
 
         if not staff:
-            return jsonify({"error": "Staff does not exist"}), 404
+            return jsonify({"type": "database", "error": "Staff does not exist"}), 404
 
-        staff = staff[0]
         for key, value in request.json.items():
             setattr(staff, key, value)
+
+        is_valid, err_msg = validate_model(staff)
+        if not is_valid:
+            return jsonify({"type": "fluent_validation", "error": err_msg}), 409
+
         model.upsert(staff)
     except Error as err:
-        return jsonify({"error": err.msg}), 409
-    except Exception:
-        return jsonify({"error": "Internal Error"}), 500
+        return jsonify({"type": "database", "error": err.msg}), 409
+    except Exception as e:
+        return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
     else:
         return jsonify(staff.to_dict()), 201
 
@@ -65,11 +90,15 @@ def put_staff_id(id: int):
 def post_staff_id():
     try:
         staff = Staff(**request.get_json())
+        is_valid, err_msg = validate_model(staff)
+        if not is_valid:
+            return jsonify({"type": "fluent_validation", "error": err_msg}), 409
         model.insert(staff)
+
     except Error as err:
-        return jsonify({"error": err.msg}), 409
-    except Exception:
-        return jsonify({"error": "Internal Error"}), 500
+        return jsonify({"type": "database", "error": err.msg}), 409
+    except Exception as e:
+        return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
     else:
         return jsonify(staff.to_dict()), 201
 
@@ -77,9 +106,13 @@ def post_staff_id():
 @bp.route("/<int:id>", methods=["DELETE"])
 def delete_staff_id(id: int):
     try:
-        model.where(lambda s: s.staff_id == id, id=id).delete()
+        staff = model.where(lambda s: s.staff_id == id, id=id).select_one()
+        if not staff:
+            return jsonify({"type": "database", "error": "Staff not found"}), 404
+
+        model.delete(staff)
         return "", 204
     except Error as err:
-        return jsonify({"error": err.msg}), 409
-    except Exception:
-        return jsonify({"error": "Staff not found"}), 404
+        return jsonify({"type": "database", "error": err.msg}), 409
+    except Exception as e:
+        return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
