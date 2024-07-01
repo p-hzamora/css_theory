@@ -1,12 +1,13 @@
 from collections import defaultdict
 from flask import Blueprint, jsonify, request
-
+from functools import wraps
 
 from app.models.staff import Staff, StaffModel, StaffValidator
 from app.extensions import db
 from app.extensions.orm import Error
 from app.extensions.orm import ConditionType
 from app.extensions.orm import JoinType
+from app.utils.security import Auth
 
 bp = Blueprint(
     "staff",
@@ -17,6 +18,17 @@ bp = Blueprint(
 )
 
 model = StaffModel(db)
+
+
+def jwt_required(foo: object):
+    @wraps(foo)
+    def wrapped(*args, **kwargs):
+        print(request.headers)
+        if Auth.verify_token(request.headers):
+            return foo(*args, **kwargs)
+        
+        return jsonify({"success": False, "msg": "invalid token"}), 400
+    return wrapped
 
 
 def validate_model(instance: Staff) -> tuple[bool, dict[str, str]]:
@@ -30,6 +42,7 @@ def validate_model(instance: Staff) -> tuple[bool, dict[str, str]]:
 
 
 @bp.route("/", methods=["GET"])
+@jwt_required
 def staffs():
     limit = request.args.get("limit", type=int)
     if limit:
@@ -44,6 +57,7 @@ def staffs():
 
 
 @bp.route("/<int:id>", methods=["GET"])
+@jwt_required
 def get_city_by_id(id: int):
     try:
         staff = model.where(lambda s: s.staff_id == id, id=id).select_one()
@@ -51,11 +65,12 @@ def get_city_by_id(id: int):
         if not staff:
             return jsonify({"type": "database", "error": "Staff not found"}), 404
         return jsonify(staff.to_dict())
-    except Exception:
-        return jsonify({"type": "database", "error": "Internal Error"}), 500
+    except Exception as e:
+        return jsonify({"type": "database", "error": "Internal Error", "traceback": str(e)}), 500
 
 
 @bp.route("/<int:id>", methods=["PUT", "PATCH"])
+@jwt_required
 def put_staff_id(id: int):
     try:
         staff = model.where(lambda s: s.staff_id == id, id=id).select(
@@ -64,7 +79,8 @@ def put_staff_id(id: int):
                 staff.Address.City.city,
                 staff.Address.address,
                 staff.Address.address_id,
-            ),flavour=dict
+            ),
+            flavour=dict,
         )
 
         if not staff:
@@ -87,6 +103,7 @@ def put_staff_id(id: int):
 
 
 @bp.route("/", methods=["POST"])
+@jwt_required
 def post_staff_id():
     try:
         staff = Staff(**request.get_json())
@@ -104,6 +121,7 @@ def post_staff_id():
 
 
 @bp.route("/<int:id>", methods=["DELETE"])
+@jwt_required
 def delete_staff_id(id: int):
     try:
         staff = model.where(lambda s: s.staff_id == id, id=id).select_one()
