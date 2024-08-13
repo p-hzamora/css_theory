@@ -67,25 +67,12 @@ def get_city_by_id(id: int):
         return jsonify({"type": "database", "error": "Internal Error", "traceback": str(e)}), 500
 
 
-@bp.route("/<int:id>", methods=["PUT", "PATCH"])
+@bp.route("/<int:id>", methods=["PUT"])
 @jwt_required
 def put_staff_id(id: int):
     try:
-        staff = model.where(lambda s: s.staff_id == id, id=id).select(
-            lambda staff: (
-                staff.Address.City.Country.country,
-                staff.Address.City.city,
-                staff.Address.address,
-                staff.Address.address_id,
-            ),
-            flavour=dict,
-        )
-
-        if not staff:
-            return jsonify({"type": "database", "error": "Staff does not exist"}), 404
-
-        for key, value in request.json.items():
-            setattr(staff, key, value)
+        staff: Staff = Staff(**request.json)
+        staff.staff_id = id
 
         is_valid, err_msg = validate_model(staff)
         if not is_valid:
@@ -98,6 +85,19 @@ def put_staff_id(id: int):
         return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
     else:
         return jsonify(staff.to_dict()), 201
+
+
+@bp.route("/<int:id>", methods=["PATCH"])
+@jwt_required
+def patch_staff_id(id: int):
+    try:
+        model.where(lambda s: s.staff_id == id, id=id).update(request.json)
+    except Error as err:
+        return jsonify({"type": "database", "error": err.msg}), 409
+    except Exception as e:
+        return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
+    else:
+        return "", 204
 
 
 @bp.route("/", methods=["POST"])
