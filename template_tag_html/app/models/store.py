@@ -24,8 +24,8 @@ class Store(Table):
 
 
 class StoreModel(BaseModel[Store]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(Store, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, Store, repository=repository)
 
 
 class Staff(Table):
@@ -48,5 +48,5 @@ class Staff(Table):
 
 
 class StaffModel(BaseModel[Staff]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(Staff, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, Staff, repository=repository)

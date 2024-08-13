@@ -17,5 +17,5 @@ class Country(Table):
 
 
 class CountryModel(BaseModel[Country]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(Country, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, Country, repository=repository)

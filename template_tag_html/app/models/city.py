@@ -24,5 +24,5 @@ class City(Table):
 
 
 class CityModel(BaseModel[City]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(City, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, City, repository=repository)

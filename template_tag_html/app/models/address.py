@@ -29,8 +29,8 @@ class Address(Table):
 
 
 class AddressModel(BaseModel[Address]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(Address, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, Address, repository=repository)
 
 
 class AddressValidator(AbstractValidator[Address]):

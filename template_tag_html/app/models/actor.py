@@ -18,5 +18,5 @@ class Actor(Table):
 
 
 class ActorModel(BaseModel[Actor]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(Actor, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, Actor, repository=repository)

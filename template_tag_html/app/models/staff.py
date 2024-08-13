@@ -35,8 +35,8 @@ class Staff(Table):
 
 
 class StaffModel(BaseModel[Staff]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(Staff, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, Staff, repository=repository)
 
 
 def return_msg(dtype: object) -> str:

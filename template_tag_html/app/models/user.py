@@ -17,5 +17,5 @@ class User(Table):
 
 
 class UserModel(BaseModel[User]):
-    def __init__(self, repository: IRepositoryBase):
-        super().__init__(User, repository=repository)
+    def __new__[TRepo](cls, repository: IRepositoryBase[TRepo]):
+        return super().__new__(cls, User, repository=repository)
