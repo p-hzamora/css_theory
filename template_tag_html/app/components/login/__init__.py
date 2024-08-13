@@ -5,8 +5,6 @@ from app.utils.security import Auth
 from app.models.user import User, UserModel
 from app.extensions import db
 from app.extensions.orm import Error
-from app.extensions.orm import ConditionType
-from app.extensions.orm import JoinType
 
 bp = Blueprint(
     "login",

@@ -5,8 +5,6 @@ from functools import wraps
 from app.models.staff import Staff, StaffModel, StaffValidator
 from app.extensions import db
 from app.extensions.orm import Error
-from app.extensions.orm import ConditionType
-from app.extensions.orm import JoinType
 from app.utils.security import Auth
 
 bp = Blueprint(
