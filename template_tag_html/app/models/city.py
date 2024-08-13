@@ -2,7 +2,7 @@ from typing import Self
 from app.extensions.orm import (
     Column,
     Table,
-    ModelBase,
+    BaseModel,
     IRepositoryBase,
     ForeignKey,
 )
@@ -20,11 +20,9 @@ class City(Table):
     country_id: str
     last_update: datetime
 
-    Country = ForeignKey[Self, Country](
-        __table_name__, Country, lambda ci, co: ci.country_id == co.country_id
-    )
+    Country = ForeignKey[Self, Country](__table_name__, Country, lambda ci, co: ci.country_id == co.country_id)
 
 
-class CityModel(ModelBase[City]):
+class CityModel(BaseModel[City]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(City, repository=repository)

@@ -1,7 +1,7 @@
 from app.extensions.orm import (
     Column,
     Table,
-    ModelBase,
+    BaseModel,
     IRepositoryBase,
 )
 
@@ -16,6 +16,6 @@ class User(Table):
     email: str = Column[str](is_unique=True)
 
 
-class UserModel(ModelBase[User]):
+class UserModel(BaseModel[User]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(User, repository=repository)

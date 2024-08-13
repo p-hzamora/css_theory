@@ -2,7 +2,7 @@ from typing import Self
 from app.extensions.orm import (
     Column,
     Table,
-    ModelBase,
+    BaseModel,
     IRepositoryBase,
     ForeignKey,
 )
@@ -20,12 +20,10 @@ class Store(Table):
     address_id: int
     last_update: datetime
 
-    Address = ForeignKey[Self, Address](
-        __table_name__, Address, lambda s, a: s.store_id == a.address_id
-    )
+    Address = ForeignKey[Self, Address](__table_name__, Address, lambda s, a: s.store_id == a.address_id)
 
 
-class StoreModel(ModelBase[Store]):
+class StoreModel(BaseModel[Store]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(Store, repository=repository)
 
@@ -45,14 +43,10 @@ class Staff(Table):
     password: str
     last_update: datetime
 
-    Address = ForeignKey[Self, Address](
-        __table_name__, Address, lambda s, a: s.staff_id == a.address_id
-    )
-    Store = ForeignKey[Self, Store](
-        __table_name__, Store, lambda staff, store: staff.staff_id == store.store_id
-    )
+    Address = ForeignKey[Self, Address](__table_name__, Address, lambda s, a: s.staff_id == a.address_id)
+    Store = ForeignKey[Self, Store](__table_name__, Store, lambda staff, store: staff.staff_id == store.store_id)
 
 
-class StaffModel(ModelBase[Staff]):
+class StaffModel(BaseModel[Staff]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(Staff, repository=repository)

@@ -1,7 +1,7 @@
 from app.extensions.orm import (
     Column,
     Table,
-    ModelBase,
+    BaseModel,
     IRepositoryBase,
 )
 
@@ -17,6 +17,6 @@ class Actor(Table):
     last_update: datetime
 
 
-class ActorModel(ModelBase[Actor]):
+class ActorModel(BaseModel[Actor]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(Actor, repository=repository)

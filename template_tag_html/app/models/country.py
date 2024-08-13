@@ -1,7 +1,7 @@
 from app.extensions.orm import (
     Column,
     Table,
-    ModelBase,
+    BaseModel,
     IRepositoryBase,
 )
 
@@ -16,6 +16,6 @@ class Country(Table):
     last_update: datetime
 
 
-class CountryModel(ModelBase[Country]):
+class CountryModel(BaseModel[Country]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(Country, repository=repository)

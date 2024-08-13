@@ -2,7 +2,7 @@ from typing import Self
 from app.extensions.orm import (
     Column,
     Table,
-    ModelBase,
+    BaseModel,
     IRepositoryBase,
     ForeignKey,
 )
@@ -34,7 +34,7 @@ class Staff(Table):
     Store = ForeignKey[Self, Store](__table_name__, Store, lambda staff, store: staff.store_id == store.store_id)
 
 
-class StaffModel(ModelBase[Staff]):
+class StaffModel(BaseModel[Staff]):
     def __init__(self, repository: IRepositoryBase):
         super().__init__(Staff, repository=repository)
 
