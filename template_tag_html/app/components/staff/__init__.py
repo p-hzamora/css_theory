@@ -4,7 +4,7 @@ from functools import wraps
 
 from app.models.staff import Staff, StaffModel, StaffValidator
 from app.extensions import db
-from app.extensions.orm import Error
+from app.extensions.orm.orm.databases.my_sql import Error
 from app.utils.security import Auth
 
 bp = Blueprint(
@@ -44,7 +44,7 @@ def validate_model(instance: Staff) -> tuple[bool, dict[str, str]]:
 def staffs():
     limit = request.args.get("limit", type=int)
     if limit:
-        values = model.limit(limit).select()[0]
+        values = model.limit(limit).select()
         return jsonify({"limit": limit, "data": [x.to_dict() for x in values]})
     res: tuple[Staff] = model.select(lambda x: (x,))[0]
 
