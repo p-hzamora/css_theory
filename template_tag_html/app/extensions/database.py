@@ -1,3 +1,7 @@
 from .orm import MySQLRepository
+from decouple import config
 
-db = MySQLRepository(username="root",password="1234",database="sakila")
+USERNAME = config("USERNAME")
+PASSWORD = config("PASSWORD")
+DATABASE = config("DATABASE")
+db = MySQLRepository(user=USERNAME, password=PASSWORD, database=DATABASE)
