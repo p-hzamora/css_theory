@@ -28,7 +28,7 @@ class Auth:
             return False
 
         try:
-            encode_token: str = auth.removeprefix("Bearer ").lower()
+            encode_token: str = auth.removeprefix("Bearer ")
             jwt.decode(encode_token, cls.SECRET, algorithms=["HS256"])
             return True
         except (jwt.ExpiredSignatureError, jwt.InvalidSignatureError):
