@@ -35,7 +35,14 @@ def login():
         return jsonify({"success": True, "token": token})
 
     except Exception as e:
-        return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
+        return jsonify(
+            {
+                "success": False,
+                "type": "Program Execution",
+                "error": "Internal Error",
+                "traceback": str(e),
+            }
+        ), 500
 
 
 @bp.route("/register", methods=["POST"])
