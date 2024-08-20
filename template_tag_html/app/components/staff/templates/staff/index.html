@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Responsive Navbar</title>
+</head>
+<body>
+    <nav>
+        <ul class="sidebar">
+            <li class="close-btn-sidebar"><a href="#"><ion-icon name="close-outline"></ion-icon></a>
+            </li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="#">Login</a></li>
+        </ul>
+        <ul>
+            <li ><a href="#">Coding2go</a></li>
+            <li class="hideOnMobile"><a href="#">Coding2go</a></li>
+            <li class="hideOnMobile"><a href="#">Products</a></li>
+            <li class="hideOnMobile"><a href="#">About</a></li>
+            <li class="hideOnMobile"><a href="#">Forum</a></li>
+            <li class="hideOnMobile"><a href="#">login</a></li>
+            <li class="sidebar-btn"><a href="#"><ion-icon name="reorder-three-outline"></ion-icon></a></li>
+        </ul>
+    </nav>
+    <div>
+        <div id="tableContainer"></div>
+    </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script type="module" src="sidebar.js"></script>
+<script type="module" src="createTable.js"></script>
+</body>
+</html>

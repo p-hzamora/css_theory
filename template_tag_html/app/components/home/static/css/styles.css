@@ -1,0 +1,18 @@
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid black; /* Opcional: para ver los bordes de las celdas */
+    padding: 8px;
+    width: 150px; /* Ajusta según tus necesidades */
+}
+
+td {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}

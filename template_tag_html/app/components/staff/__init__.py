@@ -21,7 +21,7 @@ model = StaffModel(db)
 def jwt_required(foo: object):
     @wraps(foo)
     def wrapped(*args, **kwargs):
-        print(request.headers)
+        return foo(*args, **kwargs)
         if Auth.verify_token(request.headers):
             return foo(*args, **kwargs)
         
@@ -46,7 +46,7 @@ def staffs():
     if limit:
         values = model.limit(limit).select()
         return jsonify({"limit": limit, "data": [x.to_dict() for x in values]})
-    res: tuple[Staff] = model.select(lambda x: (x,))[0]
+    res = model.select(lambda x: (x,))[0]
 
     new_res = []
     for s in res:

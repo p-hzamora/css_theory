@@ -58,4 +58,5 @@ def register():
         return jsonify({"type": "Program Execution", "error": "Internal Error", "traceback": str(e)}), 500
 
     else:
-        return "", 204
+        token = Auth.generate_token(user)
+        return jsonify({"success": True, "token": token})
